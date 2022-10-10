@@ -40,7 +40,7 @@ typedef struct CPU_Stage
     int result_buffer;
     int memory_address;
     int has_insn;
-    int hold;
+    int is_data_Dependent;
 } CPU_Stage;
 
 /* Model of APEX CPU */
@@ -56,7 +56,7 @@ typedef struct APEX_CPU
     int single_step;               /* Wait for user input after every cycle */
     int zero_flag;                 /* {TRUE, FALSE} Used by BZ and BNZ to branch */
     int fetch_from_next_cycle;
-    int valid_regs[REG_FILE_SIZE];
+    int regs_Flag[REG_FILE_SIZE];
 
     /* Pipeline stages */
     CPU_Stage fetch;
@@ -70,4 +70,6 @@ APEX_Instruction *create_code_memory(const char *filename, int *size);
 APEX_CPU *APEX_cpu_init(const char *filename);
 void APEX_cpu_run(APEX_CPU *cpu);
 void APEX_cpu_stop(APEX_CPU *cpu);
+void APEX_cpu_simulate(APEX_CPU *cpu,int cycle,const char *option);
+void displaySequence();
 #endif
